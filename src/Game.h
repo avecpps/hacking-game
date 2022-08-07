@@ -1,7 +1,12 @@
+#pragma once
+
 #include <vector>
+#include <memory>
 #include <string>
 #include <SFML/Graphics.hpp>
 #include "ApplicationFile.h"
+#include "Level.h"
+#include "MainLevel.h"
 
 class Game
 {
@@ -21,5 +26,7 @@ private:
 
     float deltaTime;
 
-    std::vector<ApplicationFile> applicationFiles;
+    std::vector<std::unique_ptr<Level>> levels;
+
+    int currentLevel;
 };
