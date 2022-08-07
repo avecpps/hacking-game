@@ -1,5 +1,7 @@
+#include <vector>
 #include <string>
 #include <SFML/Graphics.hpp>
+#include "ApplicationFile.h"
 
 class Game
 {
@@ -18,4 +20,6 @@ private:
     sf::Clock clock;
 
     float deltaTime;
+
+    std::vector<ApplicationFile> applicationFiles;
 };
