@@ -7,6 +7,8 @@ Game::Game(int width, int height, const std::string& title)
     levels.push_back(std::make_unique<MainLevel>());
 
     currentLevel = 0;
+
+    window.setVerticalSyncEnabled(true);
 }
 
 void Game::Start()
