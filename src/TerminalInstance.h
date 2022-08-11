@@ -24,4 +24,8 @@ private:
     std::string terminalString;
 
     std::stack<std::unique_ptr<TerminalApplication>> terminalApplications;
+
+    std::vector<TerminalApplicationType> applicationTypes;
+
+    std::vector<std::string> arguments;
 };

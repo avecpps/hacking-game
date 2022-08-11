@@ -24,8 +24,9 @@ public:
 
     bool GetIsDragging();
 
-
     void SetFocused(bool newFocused);
+    
+    bool GetShouldClose();
 
 protected:
     void UpdateWindowPosition();
@@ -45,4 +46,6 @@ protected:
     bool isDragging;
 
     bool isFocused;
+
+    bool shouldClose;
 };

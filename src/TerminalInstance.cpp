@@ -22,10 +22,36 @@ void TerminalInstance::Update(float deltaTime)
 
     if (terminalApplications.size() != 0)
     {
-        if (terminalApplications.top()->Execute(terminalString))
+        if (terminalApplications.top()->Execute(arguments, terminalString, applicationTypes))
         {
             terminalApplications.pop();
+
+            if (terminalApplications.size() != 0)
+            {
+                terminalApplications.top()->OnRestartApplication(terminalString);
+            }
         }
+
+        for (int i = 0; i < applicationTypes.size(); i++)
+        {
+            switch (applicationTypes[i])
+            {
+                case TerminalApplicationType::Shell:
+                    terminalApplications.push(std::make_unique<TerminalApplicationShell>(terminalString));
+                    break;
+
+                case TerminalApplicationType::Echo:
+                    terminalApplications.push(std::make_unique<TerminalApplicationEcho>());
+                    break;
+            }
+        }
+
+        applicationTypes.clear();
+    }
+
+    else
+    {
+        shouldClose = true;
     }
 
     textBuffer.setString(terminalString);
@@ -44,6 +70,6 @@ void TerminalInstance::OnTextEntered(char character)
 {
     if (terminalApplications.size() != 0)
     {
-        terminalApplications.top()->OnTextEntered(character, terminalString);
+        terminalApplications.top()->OnTextEntered(character, terminalString, applicationTypes);
     }
 }

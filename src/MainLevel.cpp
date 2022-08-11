@@ -124,6 +124,13 @@ void MainLevel::Update(float deltaTime, sf::RenderWindow& window)
     for (int i = 0; i < applicationInstances.size(); i++)
     {
         applicationInstances[i]->Update(deltaTime);
+
+        if (applicationInstances[i]->GetShouldClose())
+        {
+            applicationInstances.erase(applicationInstances.begin() + i);
+
+            i--;
+        }
     }
 }
 

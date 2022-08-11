@@ -3,14 +3,23 @@
 TerminalApplicationShell::TerminalApplicationShell(std::string& output)
 {
     output += "shell: ";
+
+    shouldClose = false;
 }
 
-bool TerminalApplicationShell::Execute(std::string &output)
+void TerminalApplicationShell::OnRestartApplication(std::string& output)
 {
-    return false;
+    output += "\nshell: ";
 }
 
-void TerminalApplicationShell::OnTextEntered(char character, std::string& output)
+bool TerminalApplicationShell::Execute(std::vector<std::string>& arguments, std::string &output, std::vector<TerminalApplicationType>& applicationTypes)
+{
+    arguments = newArguments;
+
+    return shouldClose;
+}
+
+void TerminalApplicationShell::OnTextEntered(char character, std::string& output, std::vector<TerminalApplicationType>& applicationTypes)
 { 
     if (character == '\b')
     {
@@ -21,7 +30,29 @@ void TerminalApplicationShell::OnTextEntered(char character, std::string& output
 
     else if (character == '\r')
     {
-        output += "\nshell: ";
+        std::pair<std::string, std::vector<std::string>> pair = ParseCommand(inputLine);
+
+        if (pair.first == "echo")
+        {
+            newArguments = pair.second;
+
+            applicationTypes.push_back(TerminalApplicationType::Echo);
+
+            inputLine.clear();
+
+            return;
+        }
+
+
+        if (inputLine == "exit")
+        {
+            shouldClose = true;
+        }
+
+        else
+        {
+            output += "\nshell: ";
+        }
 
         inputLine.clear();
     }
@@ -32,4 +63,50 @@ void TerminalApplicationShell::OnTextEntered(char character, std::string& output
 
         inputLine += character;
     }
+}
+
+std::pair<std::string, std::vector<std::string>> TerminalApplicationShell::ParseCommand(const std::string& command)
+{
+    std::string first = "";
+
+    std::vector<std::string> second;
+
+    bool accumulatingFirst = true;
+
+    std::string current = "";
+
+    for (int i = 0; i < command.size(); i++)
+    {
+        if (accumulatingFirst)
+        {
+            if (command[i] != ' ')
+            {
+                first += command[i];
+            }
+
+            else
+            {
+                accumulatingFirst = false;
+            }
+        }
+
+        else
+        {
+            if (command[i] != ' ')
+            {
+                current += command[i];
+            }
+
+            else
+            {
+                second.push_back(current);
+
+                current.clear();
+            }
+        }
+    }
+
+    second.push_back(current);
+
+    return { first, second };
 }

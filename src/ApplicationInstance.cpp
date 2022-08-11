@@ -20,6 +20,8 @@ ApplicationInstance::ApplicationInstance(const sf::Vector2f& newPosition, int ne
     isDragging = false;
 
     isFocused = false;
+
+    shouldClose = false;
 }
 
 sf::FloatRect ApplicationInstance::GetFloatRect()
@@ -82,6 +84,11 @@ bool ApplicationInstance::GetIsDragging()
 void ApplicationInstance::SetFocused(bool newFocused)
 {
     isFocused = newFocused;
+}
+
+bool ApplicationInstance::GetShouldClose()
+{
+    return shouldClose;
 }
 
 void ApplicationInstance::UpdateWindowPosition()
