@@ -19,7 +19,14 @@ void Game::Start()
 
         while (window.pollEvent(event))
         {
-            if (event.type == sf::Event::Closed)
+            if (event.type == sf::Event::Resized)
+            {
+                sf::FloatRect visibleRegion(0.0f, 0.0f, event.size.width, event.size.height);
+
+                window.setView(sf::View(visibleRegion));
+            }
+
+            else if (event.type == sf::Event::Closed)
             {
                 window.close();
             }
@@ -35,7 +42,7 @@ void Game::Update()
 {
     deltaTime = clock.restart().asMilliseconds();
 
-    levels[currentLevel]->Update(deltaTime);
+    levels[currentLevel]->Update(deltaTime, window);
 }
 
 void Game::Draw()
