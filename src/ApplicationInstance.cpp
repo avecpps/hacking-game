@@ -16,6 +16,8 @@ ApplicationInstance::ApplicationInstance(const sf::Vector2f& newPosition, int ne
     background.setSize(sf::Vector2f(width, height));
 
     UpdateWindowPosition();
+
+    isDragging = false;
 }
 
 sf::FloatRect ApplicationInstance::GetFloatRect()
@@ -28,6 +30,11 @@ void ApplicationInstance::SetPosition(const sf::Vector2f &newPosition)
     position = newPosition;
 
     UpdateWindowPosition();
+}
+
+sf::Vector2f ApplicationInstance::GetPosition()
+{
+    return position;
 }
 
 bool ApplicationInstance::HandleDragging(const sf::Vector2f &mousePosition, const sf::Vector2f &previousMousePosition)
@@ -53,6 +60,16 @@ void ApplicationInstance::Draw(sf::RenderWindow &window)
     window.draw(topBorder);
 
     window.draw(background);
+}
+
+void ApplicationInstance::SetIsDragging(bool newIsDragging)
+{
+    isDragging = newIsDragging;
+}
+
+bool ApplicationInstance::GetIsDragging()
+{
+    return isDragging;
 }
 
 void ApplicationInstance::UpdateWindowPosition()

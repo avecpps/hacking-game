@@ -10,12 +10,17 @@ public:
     sf::FloatRect GetFloatRect();
 
     void SetPosition(const sf::Vector2f& newPosition);
+    sf::Vector2f GetPosition();
 
     bool HandleDragging(const sf::Vector2f& mousePosition, const sf::Vector2f& previousMousePosition);
 
     virtual void Update(float deltaTime);
 
     virtual void Draw(sf::RenderWindow& window);
+
+    void SetIsDragging(bool newIsDragging);
+
+    bool GetIsDragging();
 
 protected:
     void UpdateWindowPosition();
@@ -31,4 +36,6 @@ protected:
     sf::Vector2f position;
 
     float borderThickness;
+
+    bool isDragging;
 };

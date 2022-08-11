@@ -15,6 +15,9 @@ public:
     void Draw(sf::RenderWindow& window);
 
 private:
+    bool IsHoveringOverInstance();
+
+private:
     std::vector<ApplicationFile> applicationFiles;
     std::vector<std::unique_ptr<ApplicationInstance>> applicationInstances;
 
@@ -24,6 +27,8 @@ private:
 
     bool hasClickedMouse;
     int mouseClickCount;
+
+    bool hasClickedMouseDragging;
 
     sf::Vector2f mousePosition;
     sf::Vector2f previousMousePosition;

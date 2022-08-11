@@ -31,7 +31,7 @@ void MainLevel::Update(float deltaTime, sf::RenderWindow& window)
         {
             for (int i = 0; i < applicationFiles.size(); i++)
             {
-                if (applicationFiles[i].GetFloatRect().contains(mousePosition))
+                if (applicationFiles[i].GetFloatRect().contains(mousePosition) && !IsHoveringOverInstance())
                 {
                     mouseClickCount += 1;
 
@@ -49,10 +49,15 @@ void MainLevel::Update(float deltaTime, sf::RenderWindow& window)
 
             for (int i = applicationInstances.size() - 1; i >= 0; i--)
             {
-                if (i != applicationInstances.size() - 1 && applicationInstances[i]->GetFloatRect().contains(mousePosition))
+                if (applicationInstances[i]->GetFloatRect().contains(mousePosition) && !hasClickedMouse)
                 {
-                    applicationInstances.push_back(std::move(applicationInstances[i]));
-                    applicationInstances.erase(applicationInstances.begin() + i);
+                    if (i != applicationInstances.size() - 1)
+                    {
+                        applicationInstances.push_back(std::move(applicationInstances[i]));
+                        applicationInstances.erase(applicationInstances.begin() + i);
+                    }
+
+                    break;
                 }
             }
         }
@@ -71,7 +76,7 @@ void MainLevel::Update(float deltaTime, sf::RenderWindow& window)
     }
 
     for (int i = applicationInstances.size() - 1; i >= 0; i--)
-    {
+    { 
         if (applicationInstances[i]->HandleDragging(mousePosition, previousMousePosition))
         {
             if (i != applicationInstances.size() - 1)
@@ -80,6 +85,13 @@ void MainLevel::Update(float deltaTime, sf::RenderWindow& window)
                 applicationInstances.erase(applicationInstances.begin() + i);
             }
 
+            hasClickedMouse = true;
+
+            break;
+        }
+
+        if (applicationInstances[i]->GetFloatRect().contains(mousePosition))
+        {
             break;
         }
     }
@@ -101,4 +113,17 @@ void MainLevel::Draw(sf::RenderWindow &window)
     {
         applicationInstances[i]->Draw(window);
     }
+}
+
+bool MainLevel::IsHoveringOverInstance()
+{
+    for (int i = applicationInstances.size() - 1; i >= 0; i--)
+    {
+        if (applicationInstances[i]->GetFloatRect().contains(mousePosition))
+        {
+            return true;
+        }
+    }
+
+    return false;
 }
