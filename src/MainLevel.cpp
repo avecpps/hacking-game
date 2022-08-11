@@ -40,10 +40,19 @@ void MainLevel::Update(float deltaTime, sf::RenderWindow& window)
                         applicationInstances.push_back(applicationFiles[i].MakeApplicationInstance());
                         applicationInstances[applicationInstances.size() - 1]->SetPosition(newInstanceStartPosition);
 
-                        newInstanceStartPosition += sf::Vector2f(64.0f, 64.0f);
+                        newInstanceStartPosition = sf::Vector2f(64.0f, 64.0f);
 
                         mouseClickCount = 0;
                     }
+                }
+            }
+
+            for (int i = applicationInstances.size() - 1; i >= 0; i--)
+            {
+                if (i != applicationInstances.size() - 1 && applicationInstances[i]->GetFloatRect().contains(mousePosition))
+                {
+                    applicationInstances.push_back(std::move(applicationInstances[i]));
+                    applicationInstances.erase(applicationInstances.begin() + i);
                 }
             }
         }

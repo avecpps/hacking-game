@@ -15,9 +15,12 @@ ApplicationInstance::ApplicationInstance(const sf::Vector2f& newPosition, int ne
     topBorder.setSize(sf::Vector2f(width, borderThickness));
     background.setSize(sf::Vector2f(width, height));
 
-    topBorder.setPosition(position - sf::Vector2f(0.0f, borderThickness));
-    background.setPosition(position);
+    UpdateWindowPosition();
+}
 
+sf::FloatRect ApplicationInstance::GetFloatRect()
+{
+    return background.getGlobalBounds();
 }
 
 void ApplicationInstance::SetPosition(const sf::Vector2f &newPosition)

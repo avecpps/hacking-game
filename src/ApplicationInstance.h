@@ -7,6 +7,8 @@ class ApplicationInstance
 public:
     ApplicationInstance(const sf::Vector2f& newPosition, int newWidth, int newHeight);
 
+    sf::FloatRect GetFloatRect();
+
     void SetPosition(const sf::Vector2f& newPosition);
 
     bool HandleDragging(const sf::Vector2f& mousePosition, const sf::Vector2f& previousMousePosition);
