@@ -15,6 +15,7 @@ MainLevel::MainLevel()
 
 void MainLevel::Update(float deltaTime, sf::RenderWindow& window)
 {
+    previousMousePosition = mousePosition;
     mousePosition = (sf::Vector2f)sf::Mouse::getPosition(window);
 
     if (mouseInteractClock.getElapsedTime().asSeconds() >= mouseInteractDelay)
@@ -58,6 +59,14 @@ void MainLevel::Update(float deltaTime, sf::RenderWindow& window)
     for (int i = 0; i < applicationFiles.size(); i++)
     {
         applicationFiles[i].Update(deltaTime);
+    }
+
+    for (int i = applicationInstances.size() - 1; i >= 0; i--)
+    {
+        if (applicationInstances[i]->HandleDragging(mousePosition, previousMousePosition))
+        {
+            break;
+        }
     }
 
     for (int i = 0; i < applicationInstances.size(); i++)
