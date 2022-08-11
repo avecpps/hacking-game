@@ -25,6 +25,27 @@ void MainLevel::Update(float deltaTime, sf::RenderWindow& window)
         mouseInteractClock.restart();
     }
 
+    for (int i = applicationInstances.size() - 1; i >= 0; i--)
+    { 
+        if (applicationInstances[i]->HandleDragging(mousePosition, previousMousePosition))
+        {
+            if (i != applicationInstances.size() - 1)
+            {
+                applicationInstances.push_back(std::move(applicationInstances[i]));
+                applicationInstances.erase(applicationInstances.begin() + i);
+            }
+
+            hasClickedMouse = true;
+
+            break;
+        }
+
+        if (applicationInstances[i]->GetFloatRect().contains(mousePosition))
+        {
+            break;
+        }
+    }
+
     if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))
     {
         if (!hasClickedMouse)
@@ -73,27 +94,6 @@ void MainLevel::Update(float deltaTime, sf::RenderWindow& window)
     for (int i = 0; i < applicationFiles.size(); i++)
     {
         applicationFiles[i].Update(deltaTime);
-    }
-
-    for (int i = applicationInstances.size() - 1; i >= 0; i--)
-    { 
-        if (applicationInstances[i]->HandleDragging(mousePosition, previousMousePosition))
-        {
-            if (i != applicationInstances.size() - 1)
-            {
-                applicationInstances.push_back(std::move(applicationInstances[i]));
-                applicationInstances.erase(applicationInstances.begin() + i);
-            }
-
-            hasClickedMouse = true;
-
-            break;
-        }
-
-        if (applicationInstances[i]->GetFloatRect().contains(mousePosition))
-        {
-            break;
-        }
     }
 
     for (int i = 0; i < applicationInstances.size(); i++)
