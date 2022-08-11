@@ -18,6 +18,8 @@ ApplicationInstance::ApplicationInstance(const sf::Vector2f& newPosition, int ne
     UpdateWindowPosition();
 
     isDragging = false;
+
+    isFocused = false;
 }
 
 sf::FloatRect ApplicationInstance::GetFloatRect()
@@ -62,6 +64,11 @@ void ApplicationInstance::Draw(sf::RenderWindow &window)
     window.draw(background);
 }
 
+void ApplicationInstance::OnTextEntered(char character)
+{
+
+}
+
 void ApplicationInstance::SetIsDragging(bool newIsDragging)
 {
     isDragging = newIsDragging;
@@ -70,6 +77,11 @@ void ApplicationInstance::SetIsDragging(bool newIsDragging)
 bool ApplicationInstance::GetIsDragging()
 {
     return isDragging;
+}
+
+void ApplicationInstance::SetFocused(bool newFocused)
+{
+    isFocused = newFocused;
 }
 
 void ApplicationInstance::UpdateWindowPosition()

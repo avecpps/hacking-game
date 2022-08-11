@@ -28,6 +28,11 @@ void Game::Start()
                 window.setView(sf::View(visibleRegion));
             }
 
+            else if (event.type == sf::Event::TextEntered)
+            {
+                levels[currentLevel]->OnTextEntered(event.text.unicode);
+            }
+
             else if (event.type == sf::Event::Closed)
             {
                 window.close();

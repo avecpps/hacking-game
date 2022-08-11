@@ -12,6 +12,10 @@ public:
 
     void Draw(sf::RenderWindow& window) override;
 
+    void OnTextEntered(char character) override;
+
 private:
     sf::Text textBuffer;
+
+    std::string input;
 };

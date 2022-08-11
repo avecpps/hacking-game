@@ -36,8 +36,12 @@ void MainLevel::Update(float deltaTime, sf::RenderWindow& window)
             {
                 if (i != applicationInstances.size() - 1)
                 {
+                    applicationInstances[applicationInstances.size() - 1]->SetFocused(false);
+
                     applicationInstances.push_back(std::move(applicationInstances[i]));
                     applicationInstances.erase(applicationInstances.begin() + i);
+
+                    applicationInstances[applicationInstances.size() - 1]->SetFocused(true);
                 }
 
                 hasClickedMouse = true;
@@ -70,10 +74,15 @@ void MainLevel::Update(float deltaTime, sf::RenderWindow& window)
 
                     if (mouseClickCount == 2)
                     {
+                        if (applicationInstances.size() != 0)
+                        {
+                            applicationInstances[applicationInstances.size() - 1]->SetFocused(false);
+                        }
+
                         applicationInstances.push_back(applicationFiles[i].MakeApplicationInstance());
                         applicationInstances[applicationInstances.size() - 1]->SetPosition(newInstanceStartPosition);
 
-                        newInstanceStartPosition = sf::Vector2f(64.0f, 64.0f);
+                        applicationInstances[applicationInstances.size() - 1]->SetFocused(true);
 
                         mouseClickCount = 0;
                     }
@@ -86,8 +95,12 @@ void MainLevel::Update(float deltaTime, sf::RenderWindow& window)
                 {
                     if (i != applicationInstances.size() - 1)
                     {
+                        applicationInstances[applicationInstances.size() - 1]->SetFocused(false);
+
                         applicationInstances.push_back(std::move(applicationInstances[i]));
                         applicationInstances.erase(applicationInstances.begin() + i);
+
+                        applicationInstances[applicationInstances.size() - 1]->SetFocused(true);
                     }
 
                     break;
@@ -124,6 +137,14 @@ void MainLevel::Draw(sf::RenderWindow &window)
     for (int i = 0; i < applicationInstances.size(); i++)
     {
         applicationInstances[i]->Draw(window);
+    }
+}
+
+void MainLevel::OnTextEntered(char character)
+{
+    if (applicationInstances.size() != 0)
+    {
+        applicationInstances[applicationInstances.size() - 1]->OnTextEntered(character);
     }
 }
 

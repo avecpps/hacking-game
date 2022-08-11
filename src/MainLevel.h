@@ -12,9 +12,11 @@ class MainLevel : public Level
 public:
     MainLevel(ResourceManager& resourceManager);
 
-    void Update(float deltaTime, sf::RenderWindow& window);
+    void Update(float deltaTime, sf::RenderWindow& window) override;
 
-    void Draw(sf::RenderWindow& window);
+    void Draw(sf::RenderWindow& window) override;
+
+    void OnTextEntered(char character) override;
 
 private:
     bool IsHoveringOverInstance();

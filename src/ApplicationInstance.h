@@ -18,9 +18,14 @@ public:
 
     virtual void Draw(sf::RenderWindow& window);
 
+    virtual void OnTextEntered(char character);
+
     void SetIsDragging(bool newIsDragging);
 
     bool GetIsDragging();
+
+
+    void SetFocused(bool newFocused);
 
 protected:
     void UpdateWindowPosition();
@@ -38,4 +43,6 @@ protected:
     float borderThickness;
 
     bool isDragging;
+
+    bool isFocused;
 };
