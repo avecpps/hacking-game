@@ -4,7 +4,9 @@ Game::Game(int width, int height, const std::string& title)
     :
     window(sf::VideoMode(width, height), title)
 {
-    levels.push_back(std::make_unique<MainLevel>());
+    resourceManager.LoadFont("terminalFont", "../font.ttf");
+
+    levels.push_back(std::make_unique<MainLevel>(resourceManager));
 
     currentLevel = 0;
 

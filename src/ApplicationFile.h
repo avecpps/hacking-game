@@ -3,11 +3,18 @@
 #include <memory>
 #include <SFML/Graphics.hpp>
 #include "ApplicationInstance.h"
+#include "TerminalInstance.h"
+
+enum class ApplicationInstanceType
+{
+    Base,
+    Terminal
+};
 
 class ApplicationFile
 {
 public:
-    ApplicationFile(const sf::Vector2f& position, std::unique_ptr<ApplicationInstance>&& newApplicationInstance);
+    ApplicationFile(const sf::Vector2f& position, ApplicationInstanceType newApplicationInstanceType, ResourceManager& newResourceManager);
 
     sf::FloatRect GetFloatRect();
 
@@ -16,8 +23,11 @@ public:
     void Update(float deltaTime);
 
     void Draw(sf::RenderWindow& window);
+
 private:
     sf::RectangleShape rectangleShape;
 
-    std::unique_ptr<ApplicationInstance> applicationInstance;
+    ApplicationInstanceType applicationInstanceType;
+
+    ResourceManager& resourceManager;
 };

@@ -1,9 +1,9 @@
 #include "MainLevel.h"
 
-MainLevel::MainLevel()
+MainLevel::MainLevel(ResourceManager& resourceManager)
 {
-    applicationFiles.push_back(ApplicationFile(sf::Vector2f(0.0f, 0.0f), std::make_unique<ApplicationInstance>(ApplicationInstance(sf::Vector2f(20.0f, 20.0f), 800, 600))));
-    applicationFiles.push_back(ApplicationFile(sf::Vector2f(0.0f, 96.0f), std::make_unique<TerminalInstance>(TerminalInstance())));
+    applicationFiles.push_back(ApplicationFile(sf::Vector2f(0.0f, 0.0f), ApplicationInstanceType::Base, resourceManager));
+    applicationFiles.push_back(ApplicationFile(sf::Vector2f(0.0f, 96.0f), ApplicationInstanceType::Terminal, resourceManager));
 
     mouseInteractDelay = 1.0f;
 

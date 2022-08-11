@@ -4,12 +4,13 @@
 #include "ApplicationFile.h"
 #include "ApplicationInstance.h"
 #include "TerminalInstance.h"
+#include "ResourceManager.h"
 #include "Level.h"
 
 class MainLevel : public Level
 {
 public:
-    MainLevel();
+    MainLevel(ResourceManager& resourceManager);
 
     void Update(float deltaTime, sf::RenderWindow& window);
 

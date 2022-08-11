@@ -1,11 +1,12 @@
 #pragma once
 
 #include "ApplicationInstance.h"
+#include "ResourceManager.h"
 
 class TerminalInstance : public ApplicationInstance
 {
 public:
-    TerminalInstance();
+    TerminalInstance(ResourceManager& resourceManager);
 
     void Update(float deltaTime) override;
 

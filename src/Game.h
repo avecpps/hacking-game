@@ -7,6 +7,7 @@
 #include "ApplicationFile.h"
 #include "Level.h"
 #include "MainLevel.h"
+#include "ResourceManager.h"
 
 class Game
 {
@@ -29,4 +30,6 @@ private:
     std::vector<std::unique_ptr<Level>> levels;
 
     int currentLevel;
+
+    ResourceManager resourceManager;
 };
