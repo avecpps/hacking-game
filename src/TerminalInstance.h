@@ -1,7 +1,11 @@
 #pragma once
 
+#include <memory>
+#include <stack>
 #include "ApplicationInstance.h"
 #include "ResourceManager.h"
+#include "TerminalApplication.h"
+#include "TerminalApplicationShell.h"
 
 class TerminalInstance : public ApplicationInstance
 {
@@ -17,5 +21,7 @@ public:
 private:
     sf::Text textBuffer;
 
-    std::string input;
+    std::string terminalString;
+
+    std::stack<std::unique_ptr<TerminalApplication>> terminalApplications;
 };

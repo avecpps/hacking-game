@@ -10,11 +10,25 @@ TerminalInstance::TerminalInstance(ResourceManager& resourceManager)
     textBuffer.setString("Hello World");
 
     textBuffer.setFillColor(sf::Color::White);
+
+    terminalApplications.push(std::make_unique<TerminalApplicationShell>(terminalString));
+
+    textBuffer.setString(terminalString);
 }
 
 void TerminalInstance::Update(float deltaTime)
 {
     ApplicationInstance::Update(deltaTime);
+
+    if (terminalApplications.size() != 0)
+    {
+        if (terminalApplications.top()->Execute(terminalString))
+        {
+            terminalApplications.pop();
+        }
+    }
+
+    textBuffer.setString(terminalString);
 
     textBuffer.setPosition(position);
 }
@@ -28,33 +42,8 @@ void TerminalInstance::Draw(sf::RenderWindow &window)
 
 void TerminalInstance::OnTextEntered(char character)
 {
-    if (character == '\r')
+    if (terminalApplications.size() != 0)
     {
-        input += '\n';
-    }
-
-    else if (character == '\b')
-    {
-        input.pop_back();
-    }
-
-    else
-    {
-        input += character;
-    }
-
-    textBuffer.setString(input);
-
-    if (textBuffer.getGlobalBounds().width > width)
-    {
-        char lastChar = input[input.size() - 1];
-
-        input.pop_back();
-
-        input += '\n';
-
-        input += lastChar;
-
-        textBuffer.setString(input);
+        terminalApplications.top()->OnTextEntered(character, terminalString);
     }
 }
