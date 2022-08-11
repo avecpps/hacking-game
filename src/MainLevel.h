@@ -3,6 +3,7 @@
 #include <vector>
 #include "ApplicationFile.h"
 #include "ApplicationInstance.h"
+#include "TerminalInstance.h"
 #include "Level.h"
 
 class MainLevel : public Level
