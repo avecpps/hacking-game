@@ -9,6 +9,8 @@ MainLevel::MainLevel()
     hasClickedMouse = false;
 
     mouseClickCount = 0;
+
+    newInstanceStartPosition = sf::Vector2f(64.0f, 64.0f);
 }
 
 void MainLevel::Update(float deltaTime, sf::RenderWindow& window)
@@ -35,6 +37,11 @@ void MainLevel::Update(float deltaTime, sf::RenderWindow& window)
                     if (mouseClickCount == 2)
                     {
                         applicationInstances.push_back(applicationFiles[i].MakeApplicationInstance());
+                        applicationInstances[applicationInstances.size() - 1]->SetPosition(newInstanceStartPosition);
+
+                        newInstanceStartPosition += sf::Vector2f(64.0f, 64.0f);
+
+                        mouseClickCount = 0;
                     }
                 }
             }

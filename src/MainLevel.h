@@ -26,4 +26,6 @@ private:
     int mouseClickCount;
 
     sf::Vector2f mousePosition;
+
+    sf::Vector2f newInstanceStartPosition;
 };
