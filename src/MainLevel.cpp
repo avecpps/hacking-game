@@ -2,7 +2,7 @@
 
 MainLevel::MainLevel()
 {
-    applicationFiles.push_back(ApplicationFile(sf::Vector2f(0.0f, 0.0f), std::make_unique<ApplicationInstance>(ApplicationInstance(sf::Vector2f(20.0f, 20.0f), 800, 600))));
+    applicationFiles.push_back(ApplicationFile(sf::Vector2f(0.0f, 0.0f), std::make_unique<ApplicationInstance>(ApplicationInstance(sf::Vector2f(20.0f, 20.0f), 200, 150))));
 
     mouseInteractDelay = 1.0f;
 
