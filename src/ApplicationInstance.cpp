@@ -5,7 +5,7 @@ ApplicationInstance::ApplicationInstance(const sf::Vector2f& newPosition, int ne
     width = newWidth;
     height = newHeight;
 
-    borderThickness = 10.0f;
+    borderThickness = 20.0f;
 
     topBorder.setFillColor(sf::Color::Cyan);
     background.setFillColor(sf::Color::Black);
