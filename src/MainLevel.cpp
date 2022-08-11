@@ -65,6 +65,12 @@ void MainLevel::Update(float deltaTime, sf::RenderWindow& window)
     {
         if (applicationInstances[i]->HandleDragging(mousePosition, previousMousePosition))
         {
+            if (i != applicationInstances.size() - 1)
+            {
+                applicationInstances.push_back(std::move(applicationInstances[i]));
+                applicationInstances.erase(applicationInstances.begin() + i);
+            }
+
             break;
         }
     }

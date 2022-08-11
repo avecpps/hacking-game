@@ -47,7 +47,7 @@ void Game::Update()
 
 void Game::Draw()
 {
-    window.clear(sf::Color(50.0f, 50.0f, 50.0f));
+    window.clear(sf::Color(20.0f, 20.0f, 20.0f));
 
     levels[currentLevel]->Draw(window);
 
