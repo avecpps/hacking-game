@@ -21,6 +21,8 @@ ApplicationInstance::ApplicationInstance(const sf::Vector2f& position, int newWi
 void ApplicationInstance::SetPosition(const sf::Vector2f &newPosition)
 {
     position = newPosition;
+
+    UpdateWindowPosition();
 }
 
 void ApplicationInstance::Update(float deltaTime)
