@@ -30,7 +30,7 @@ private:
     bool hasClickedMouse;
     int mouseClickCount;
 
-    bool hasClickedMouseDragging;
+    bool isDragging;
 
     sf::Vector2f mousePosition;
     sf::Vector2f previousMousePosition;

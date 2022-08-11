@@ -12,6 +12,8 @@ MainLevel::MainLevel(ResourceManager& resourceManager)
     mouseClickCount = 0;
 
     newInstanceStartPosition = sf::Vector2f(64.0f, 64.0f);
+
+    isDragging = false;
 }
 
 void MainLevel::Update(float deltaTime, sf::RenderWindow& window)
@@ -28,23 +30,32 @@ void MainLevel::Update(float deltaTime, sf::RenderWindow& window)
 
     for (int i = applicationInstances.size() - 1; i >= 0; i--)
     { 
-        if (applicationInstances[i]->HandleDragging(mousePosition, previousMousePosition))
+        if (!hasClickedMouse || isDragging)
         {
-            if (i != applicationInstances.size() - 1)
+            if (applicationInstances[i]->HandleDragging(mousePosition, previousMousePosition))
             {
-                applicationInstances.push_back(std::move(applicationInstances[i]));
-                applicationInstances.erase(applicationInstances.begin() + i);
+                if (i != applicationInstances.size() - 1)
+                {
+                    applicationInstances.push_back(std::move(applicationInstances[i]));
+                    applicationInstances.erase(applicationInstances.begin() + i);
+                }
+
+                hasClickedMouse = true;
+
+                isDragging = true;
+
+                break;
             }
 
-            hasClickedMouse = true;
+            isDragging = false;
 
-            break;
+            if (applicationInstances[i]->GetFloatRect().contains(mousePosition))
+            {
+                break;
+            }
+
         }
 
-        if (applicationInstances[i]->GetFloatRect().contains(mousePosition))
-        {
-            break;
-        }
     }
 
     if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))
