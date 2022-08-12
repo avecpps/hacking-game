@@ -27,6 +27,10 @@ std::unique_ptr<ApplicationInstance> ApplicationFile::MakeApplicationInstance()
         case ApplicationInstanceType::Terminal:
             return std::make_unique<TerminalInstance>(TerminalInstance(resourceManager));
             break;
+
+        case ApplicationInstanceType::TextFile:
+            return std::make_unique<TextFileInstance>(resourceManager);
+            break;
     }
 
     return std::make_unique<ApplicationInstance>(sf::Vector2f(0.0f, 0.0f), 800, 600);

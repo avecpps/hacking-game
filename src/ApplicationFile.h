@@ -4,11 +4,13 @@
 #include <SFML/Graphics.hpp>
 #include "ApplicationInstance.h"
 #include "TerminalInstance.h"
+#include "TextFileInstance.h"
 
 enum class ApplicationInstanceType
 {
     Base,
-    Terminal
+    Terminal,
+    TextFile
 };
 
 class ApplicationFile

@@ -3,7 +3,8 @@
 MainLevel::MainLevel(ResourceManager& resourceManager)
 {
     applicationFiles.push_back(ApplicationFile(sf::Vector2f(0.0f, 0.0f), ApplicationInstanceType::Base, resourceManager));
-    applicationFiles.push_back(ApplicationFile(sf::Vector2f(0.0f, 96.0f), ApplicationInstanceType::Terminal, resourceManager));
+    applicationFiles.push_back(ApplicationFile(sf::Vector2f(0.0f, 128.0f), ApplicationInstanceType::Terminal, resourceManager));
+    applicationFiles.push_back(ApplicationFile(sf::Vector2f(0.0f, 256.0f), ApplicationInstanceType::TextFile, resourceManager));
 
     mouseInteractDelay = 1.0f;
 
