@@ -34,6 +34,9 @@ private:
 
     bool isDragging;
 
+
+    bool hasClickedMouseDragging;
+
     sf::Vector2f mousePosition;
     sf::Vector2f previousMousePosition;
 

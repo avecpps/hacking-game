@@ -71,6 +71,8 @@ void MainLevel::Update(float deltaTime, sf::RenderWindow& window)
             {
                 if (applicationFiles[i].GetFloatRect().contains(mousePosition) && !IsHoveringOverInstance())
                 {
+                    mouseInteractClock.restart();
+
                     mouseClickCount += 1;
 
                     if (mouseClickCount == 2)
@@ -87,6 +89,8 @@ void MainLevel::Update(float deltaTime, sf::RenderWindow& window)
 
                         mouseClickCount = 0;
                     }
+
+                    hasClickedMouse = true;
                 }
             }
 
@@ -94,6 +98,8 @@ void MainLevel::Update(float deltaTime, sf::RenderWindow& window)
             {
                 if (applicationInstances[i]->GetFloatRect().contains(mousePosition) && !hasClickedMouse)
                 {
+                    mouseClickCount = 0;
+
                     if (i != applicationInstances.size() - 1)
                     {
                         applicationInstances[applicationInstances.size() - 1]->SetFocused(false);
