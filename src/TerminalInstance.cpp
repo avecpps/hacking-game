@@ -7,51 +7,40 @@ TerminalInstance::TerminalInstance(ResourceManager& resourceManager)
     textBuffer.setFont(resourceManager.GetFont("terminalFont"));
 
     textBuffer.setCharacterSize(25);
-    textBuffer.setString("Hello World");
 
     textBuffer.setFillColor(sf::Color::White);
 
-    terminalApplications.push(std::make_unique<TerminalApplicationShell>(terminalString));
+    terminalString = "Terminal\n\n";
 
     textBuffer.setString(terminalString);
+
+    std::vector<Instruction> programCode;
+
+    Instruction instruction1;
+
+    instruction1.instructionType = InstructionType::SetString;
+    instruction1.stringLiteral = "Hello World";
+
+    Instruction instruction2;
+
+    instruction2.instructionType = InstructionType::PrintString;
+
+    programCode.push_back(instruction1);
+    programCode.push_back(instruction2);
+
+    programs.push(TerminalProgram(programCode));
 }
 
 void TerminalInstance::Update(float deltaTime)
 {
     ApplicationInstance::Update(deltaTime);
 
-    if (terminalApplications.size() != 0)
+    if (programs.size() != 0)
     {
-        if (terminalApplications.top()->Execute(arguments, terminalString, applicationTypes))
+        if (programs.top().Execute(terminalString))
         {
-            terminalApplications.pop();
-
-            if (terminalApplications.size() != 0)
-            {
-                terminalApplications.top()->OnRestartApplication(terminalString);
-            }
+            programs.pop();
         }
-
-        for (int i = 0; i < applicationTypes.size(); i++)
-        {
-            switch (applicationTypes[i])
-            {
-                case TerminalApplicationType::Shell:
-                    terminalApplications.push(std::make_unique<TerminalApplicationShell>(terminalString));
-                    break;
-
-                case TerminalApplicationType::Echo:
-                    terminalApplications.push(std::make_unique<TerminalApplicationEcho>());
-                    break;
-            }
-        }
-
-        applicationTypes.clear();
-    }
-
-    else
-    {
-        shouldClose = true;
     }
 
     textBuffer.setString(terminalString);
@@ -68,8 +57,5 @@ void TerminalInstance::Draw(sf::RenderWindow &window)
 
 void TerminalInstance::OnTextEntered(char character)
 {
-    if (terminalApplications.size() != 0)
-    {
-        terminalApplications.top()->OnTextEntered(character, terminalString, applicationTypes);
-    }
+
 }
