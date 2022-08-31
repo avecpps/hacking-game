@@ -10,4 +10,6 @@ public:
     virtual void Draw(sf::RenderWindow& window) = 0;
 
     virtual void OnTextEntered(char character) = 0;
+
+    virtual void OnMouseDragged(float x, float y);
 };

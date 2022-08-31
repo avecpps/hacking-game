@@ -10,7 +10,7 @@ Game::Game(int width, int height, const std::string& title)
 
     currentLevel = 0;
 
-    window.setVerticalSyncEnabled(true);
+    window.setFramerateLimit(144);
 }
 
 void Game::Start()
@@ -26,6 +26,11 @@ void Game::Start()
                 sf::FloatRect visibleRegion(0.0f, 0.0f, event.size.width, event.size.height);
 
                 window.setView(sf::View(visibleRegion));
+            }
+
+            else if (event.type == sf::Event::MouseMoved)
+            {
+                levels[currentLevel]->OnMouseDragged(event.mouseMove.x, event.mouseMove.y);
             }
 
             else if (event.type == sf::Event::TextEntered)

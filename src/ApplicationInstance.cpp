@@ -57,6 +57,7 @@ bool ApplicationInstance::HandleDragging(const sf::Vector2f &mousePosition, cons
 
 void ApplicationInstance::Update(float deltaTime)
 {
+
 }
 
 void ApplicationInstance::Draw(sf::RenderWindow &window)
